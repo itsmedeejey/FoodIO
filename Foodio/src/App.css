@@ -1,0 +1,304 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    /* background-image: url("C:\Users\prash\OneDrive\Desktop\Captures\my program\Foodio\public\loginbackground.jpg"); */
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    margin: 0; 
+    height: 700px;
+  }
+
+  
+  /* Container for Login, Register, and Home */
+  .login {
+    background: white;
+    padding: 20px;
+    width: 420px;
+    height: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 20px;
+   
+  }
+
+  #login-heading {
+    color: #DA8F48;
+    font-family:cursive;
+    /* font-size: larger; */
+  }
+  #hat {
+    width: 200px;
+    height: 200px;
+    align-items: center;
+  }
+
+  .register {
+    background:rgb(243, 200, 147);
+    padding: 20px;
+    width: 420px;
+    height: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 20px;
+  }
+
+  #register-heading {
+    color: white;
+    font-family:cursive;
+  }
+
+  #tools {
+    width: 200px;
+    height: 200px;
+    align-items: center;
+  }
+
+  /* Input Fields */
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Buttons */
+  #loginbutton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgb(244, 138, 33);
+    color: white;
+    cursor: pointer;
+  }
+
+  #regbutton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color:darkorange;
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #DA8F48;
+  }
+
+  /* carousel */
+  /* General Carousel Styling */
+.carousel {
+  max-width: 95%; /* Set max width */
+  margin: 40px auto; /* Center and add space above/below */
+  /* border-radius: 10px; */
+  overflow: hidden;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Carousel Images */
+.carousel-item img {
+  height: 450px; /* Adjust height */
+  object-fit: cover; /* Ensure images fill the area */
+  border-radius: 10px;
+}
+
+/* Navigation Buttons */
+.carousel-control-prev, 
+.carousel-control-next {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 0.3s ease-in-out;
+}
+
+.carousel-control-prev:hover, 
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Navigation Icons */
+.carousel-control-prev-icon, 
+.carousel-control-next-icon {
+  filter: invert(100%);
+  width: 20px;
+  height: 20px;
+}
+
+/* Carousel Indicators (Dots) */
+.carousel-indicators {
+  bottom: 15px;
+}
+
+.carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  transition: background 0.3s;
+}
+
+.carousel-indicators .active {
+  background-color: white;
+}
+
+/* Caption Styling */
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  padding: 15px;
+  border-radius: 10px;
+  bottom: 30px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.carousel-caption h5 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-caption p {
+  font-size: 16px;
+  color: #ddd;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Fade-in Animation for Captions */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Featured Recipes Section */
+.container.mt-4 {
+  max-width: 95%; /* Targets the specific container with the margin-top class */
+  padding: 20px; /* Add some padding around the featured recipes */
+}
+
+.container.mt-4 h2 {
+  margin-bottom: 20px; /* Space between headings and recipe grids */
+  text-align: left; /* Center the headings */
+}
+
+/* Recipe Card Styles */
+.card {
+  border: none; /* Remove default card border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  transition: transform 0.2s; /* Smooth scaling on hover */
+  overflow: hidden; /* Ensure image doesn't overflow */
+  border-radius: 8px; /* Rounded corners for the card */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Scale up slightly on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+}
+
+.card img {
+  height: 200px; /* Set a fixed height for the images - Adjust as needed */
+  object-fit: cover; /* Maintain aspect ratio and cover the entire area */
+  border-top-left-radius: 8px; /* Rounded corners for the top of the image */
+  border-top-right-radius: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  color: #666; /* Slightly darker text color */
+  margin-bottom: 15px;
+}
+
+.btn-primary {
+  background-color: #007bff; /* Example: Bootstrap primary blue */
+  border-color: #007bff;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  border-color: #0056b3;
+}
+
+/* Responsive adjustments (example) */
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+  .col-md-4 {
+      flex: 0 0 50%; /* Two cards per row on smaller screens */
+      max-width: 50%;
+  }
+
+  .card img {
+      height: 150px; /* Adjust image height on smaller screens */
+  }
+}
+
+@media (max-width: 576px) { /* Adjust breakpoint as needed */
+  .col-md-4 {
+      flex: 0 0 100%; /* One card per row on very small screens */
+      max-width: 100%;
+  }
+  .card img {
+      height: 200px; /* Adjust image height on smaller screens */
+  }
+}
+
+.card-actions {
+  z-index: 1;
+}
+
+.card-actions button {
+  padding: 5px;
+  margin: 0 2px;
+  transition: all 0.3s ease;
+}
+
+.card-actions button:hover {
+  transform: scale(1.1);
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.share-options button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
