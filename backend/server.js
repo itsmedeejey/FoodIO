@@ -1,55 +1,24 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import User from './models/User.js';
-import bcrypt from 'bcryptjs';
+import {useRouter} from './routes/users.js';
+import {recipeRouter} from './routes/recipes.js';
+import cors from 'cors';
+// import dotenv from 'dotenv';
+// import User from "./models/Users.js"; 
+// import bcrypt from 'bcryptjs';
 
-const app = express();
-const PORT = 3000;
-app.use(express.json());
+const app = express(); // Create an Express application
+const PORT = 3001;
 
-//Home page api
-app.get('/', (req, res) => {
-  res.send("<h1 align=center>Welcome to the MERN stack week 2 session</h1>");
-});
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json()); // Middleware to parse JSON data
+// app.use(cors()); // Enable CORS for all routes
 
-//Registration page api
-app.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-  try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = new User({ username, email, password: hashedPassword });
-      await user.save();
-      res.json({ message: "User Registred.." });
-      console.log("User Registration completed...");
-  } catch (err) {
-      console.log(err);
-  }
-});
+app.use("/auth", useRouter); // Use the userRouter for routes starting with /auth
+app.use("/recipes", recipeRouter); // Use the recipeRouter for routes starting with /recipes
 
-//Login page api
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-      const user = await User.findOne({ email });
-      if (!user || !(await bcrypt.compare(password, user.password))) {
-          return res.status(400).json({ message: "Invalid Credentials" });
-      }
-      res.json({ message: "Login Successful", username: user.username });
-  } catch (err) {
-      console.log(err);
-  }
-});
+mongoose.connect("mongodb+srv://prashantihebbar344:prashantihebbar344@cluster0.s1nnc.mongodb.net/db2025?retryWrites=true&w=majority&appName=Cluster0");
 
-dotenv.config();
-
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log("DB connected successfully.."))
-  .catch((err) => console.log(err));
-
-app.listen(PORT, (err) => {
-  if (err) {
-      console.log(err);
-  }
-  console.log("Server is running on port :" + PORT);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

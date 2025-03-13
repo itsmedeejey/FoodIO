@@ -3,10 +3,17 @@ import { useNavigate } from 'react-router-dom'
 import recipes from '../pages/recipes'
 import "../navbar.css"
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const navigate = useNavigate()
+
+  const handleLogout = () => {
+    // Clear all user data
+    localStorage.clear();
+    setIsLoggedIn(false);
+    navigate("/home");
+  };
 
   const handleSearch = (e) => {
     const term = e.target.value
@@ -66,7 +73,6 @@ const Navbar = () => {
               value={searchTerm}
               onChange={handleSearch}
             />
-            {/* <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
             {searchResults.length > 0 && (
               <div className="search-results">
                 {searchResults.map(recipe => (
@@ -83,13 +89,26 @@ const Navbar = () => {
               </div>
             )}
           </form>
-          <a className="loginlink" href="/login">Login </a>
-          <a className="reglink" href="/register"> Register</a>
-          <a className="myprofile" href="/profile"><i className="fas fa-user"></i></a>
+          <div className="auth-links">
+            {isLoggedIn ? (
+              <button 
+                className="btn btn-danger ms-2" 
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <a className="loginlink" href="/login">Login </a>
+                <a className="reglink" href="/register"> Register</a>
+              </>
+            )}
+            <a className="myprofile" href="/profile"><i className="fas fa-user"></i></a>
+          </div>
         </div>
       </nav>
     </div>
   )
-}
+};
 
-export default Navbar
+export default Navbar;

@@ -1,39 +1,71 @@
-import React, { useState } from "react";
-import axios from 'axios'
-import {Link,useNavigate} from 'react-router-dom'
-import '../App.css'
+import { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import "../App.css";
 
-const Login = ({setIsLoggedIn}) => {
-  const [email, setEmail] = useState("");
+const Login = ({ setIsLoggedIn }) => {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-      try {
-        const res = await axios.post("http://localhost:5000/login", { email, password });
-        localStorage.setItem("username", res.data.username);
-        setIsLoggedIn(true);
-        navigate("/home");
-      } catch (error) {
-        alert("Invalid Credentials");
-      }
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-return (
-  <div>
-   <div className="login">
-    <h1 id="login-heading">Foodio</h1>
-    <img src="/cheftools.jpg" id="hat" alt="chefhat" />
-    <br /><br />
-    <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-    <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-    <br /><br />
-    <button id="loginbutton" onClick={handleLogin}>Login</button>
-    <br /><b><br /></b>
-    <p>New user? <Link to="/register" style={{ color: '#3b73af' }}>Register</Link></p>
-  </div>
-  </div>
-)
-}
+    if (!username || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3001/auth/login", {
+        username,
+        password
+      });
+
+      console.log('Login response:', response.data);
+
+      if (response.data.token) {
+        localStorage.setItem("username", username);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userID", response.data.userID);
+        setIsLoggedIn(true);
+        alert("Login successful!");
+        navigate("/home");
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.log('Login error:', error);
+      alert("Login failed. Please check your credentials.");
+    }
+  };
+
+  return (
+    <div className="login">
+      <h1 id="login-heading">Foodio</h1>
+      <img src="/cheftools.jpg" id="hat" alt="chefhat" />
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          placeholder="Username" 
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required 
+        />
+        <input 
+          type="password" 
+          placeholder="Password" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required 
+        />
+        <br />
+        <button id="loginbutton" type="submit">Login</button>
+      </form>
+      <br /><br />
+      <p>New user? <Link to="/register" style={{ color: '#3b73af' }}>Register</Link></p>
+    </div>
+  );
+};
 
 export default Login;

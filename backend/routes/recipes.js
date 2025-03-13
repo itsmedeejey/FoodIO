@@ -1,24 +1,62 @@
 import express from "express";
-import cors from "cors";
 import mongoose from "mongoose";
-import { userRouter } from "./routes/user.js";
-import { recipesRouter } from "./routes/recipes.js";
+import { RecipesModel } from "../models/Recipes.js";
+import { UserModel } from "../models/Users.js";
 
-const app = express();
+const router = express.Router();
 
-app.use(express.json());
-app.use(cors());
+router.get("/", async (req, res) => {
+  try {
+    const response = await RecipesModel.find({});
+    res.json(response);
+  } catch (err) {
+    res.json(err);
+  }
+});
 
-app.use("/auth", userRouter);
-app.use("/recipes", recipesRouter);
+router.post("/", async (req, res) => {
+  const recipe = new RecipesModel(req.body);
+  try {
+    const response = await recipe.save();
+    res.json(response);
+  } catch (err) {
+    res.json(err);
+  }
+});
 
-mongoose.connect(
-  "mongodb+srv://demomongo123:demomongo123@cluster0.bwegp.mongodb.net/recipetest?retryWrites=true&w=majority&appName=Cluster0",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }).then(
-    console.log("DB connected...")
-  )
+router.put("/", async (req, res) => {
+  try {
+    const recipe = await RecipesModel.findById(req.body.recipeID);
+    const user = await UserModel.findById(req.body.userID);
+    user.savedRecipes.push(recipe); 
+    await user.save();
+    res.json({ savedRecipes: user.savedRecipes });
+    res.json(response);
+  } catch (err) {
+    res.json(err);
+  }
+});
 
-app.listen(3001, () => console.log("Server started"));
+
+router.get("/savedRecipes/ids/:userId", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.userId);
+    res.json({ savedRecipes: user?.savedRecipes });
+  } catch (err) {
+    res.json(err);
+  }
+});
+
+router.get("/savedRecipes", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.userId);
+    const savedRecipes = await RecipesModel.find({
+      _id: { $in: user.savedRecipes },
+    });
+    res.json({ savedRecipes});
+  } catch (err) {
+    res.json(err);
+  }
+});
+
+export { router as recipeRouter };

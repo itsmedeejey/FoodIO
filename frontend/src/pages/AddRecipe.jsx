@@ -1,69 +1,133 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../AddRecipe.css";
+import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useGetUserID } from "../hooks/useGetUserID"; 
 
 const AddRecipe = () => {
+  const [cookies] = useCookies(["access_token"]);
+  const userID = useGetUserID();
+
+  const [recipe, setRecipe] = useState({
+    title: "",
+    imageUrl: "",
+    description: "",
+    ingredients: [],
+    instructions: "",
+    prepTime: 0,
+    cookTime: 0,
+    userOwner: userID,
+  });
+
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [photo, setPhoto] = useState(null);
-  const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [prepTime, setPrepTime] = useState("");
-  const [cookTime, setCookTime] = useState("");
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPhoto(URL.createObjectURL(file));
-    }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setRecipe({ ...recipe, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleIngredientChange = (event, index) => {
+    const { value } = event.target;
+    const ingredients = [...recipe.ingredients];
+    ingredients[index] = value;
+    setRecipe({ ...recipe, ingredients });
+  };
+
+  const handleAddIngredient = () => {
+    setRecipe({ ...recipe, ingredients: [...recipe.ingredients, ""] });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const recipeData = { title, photo, description, ingredients, instructions, prepTime, cookTime };
-    // Handle save logic here
-    alert("Recipe saved successfully! 🎉");
-    navigate('/'); // Navigate back to home page after saving
-  };
-
-  const handleBack = () => {
-    navigate(-1); // Go back to previous page
+    try {
+      await axios.post("http://localhost:3001/recipes", recipe, {
+        headers: { authorization: cookies.access_token },
+      });
+      alert("Recipe saved successfully! 🎉");
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="page-container">
       <div className="header">
-        <button className="back-btn" onClick={handleBack}>← Back</button>
+        <button className="back-btn" onClick={() => navigate(-1)}>← Back</button>
         <h1>Create New Recipe</h1>
       </div>
 
       <div className="content-container">
         <form onSubmit={handleSubmit} className="recipe-form">
           <label>Recipe Title:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <input 
+            type="text" 
+            name="title"
+            value={recipe.title} 
+            onChange={handleChange} 
+            required 
+          />
 
           <label>Upload Photo:</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          {photo && <img src={photo} alt="Preview" className="image-preview" />}
+          <input 
+            type="text"
+            name="imageUrl" 
+            value={recipe.imageUrl}
+            onChange={handleChange}
+            placeholder="Enter image URL"
+            required 
+          />
 
           <label>Description:</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+          <textarea 
+            name="description"
+            value={recipe.description} 
+            onChange={handleChange} 
+            required 
+          />
 
-          <label>Ingredients (comma separated):</label>
-          <textarea value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
+          <label>Ingredients:</label>
+          {recipe.ingredients.map((ingredient, index) => (
+            <input
+              key={index}
+              type="text"
+              value={ingredient}
+              onChange={(e) => handleIngredientChange(e, index)}
+              required
+            />
+          ))}
+          <button type="button" onClick={handleAddIngredient}>Add Ingredient</button>
 
           <label>Instructions:</label>
-          <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} required />
+          <textarea 
+            name="instructions"
+            value={recipe.instructions} 
+            onChange={handleChange} 
+            required 
+          />
 
           <div className="time-inputs">
             <div>
               <label>Prep Time (mins):</label>
-              <input type="number" value={prepTime} onChange={(e) => setPrepTime(e.target.value)} required />
+              <input 
+                type="number" 
+                name="prepTime"
+                value={recipe.prepTime} 
+                onChange={handleChange} 
+                required 
+              />
             </div>
             <div>
               <label>Cook Time (mins):</label>
-              <input type="number" value={cookTime} onChange={(e) => setCookTime(e.target.value)} required />
+              <input 
+                type="number" 
+                name="cookTime"
+                value={recipe.cookTime} 
+                onChange={handleChange} 
+                required 
+              />
             </div>
           </div>
 

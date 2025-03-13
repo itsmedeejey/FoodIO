@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Categories from "./components/Categories";
@@ -31,17 +31,16 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in
     const user = localStorage.getItem("username");
     setIsLoggedIn(!!user);
   }, []);
-
+  
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        {/* Redirect to Login if not logged in */}
         <Route path="/" element={<Home /> } />
+        <Route path="/" element={!isLoggedIn ? <Navigate to="/login" /> : <Home />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/home" element={ <Home /> } />
@@ -68,10 +67,8 @@ function App() {
         <Route path="/recipes/italian" element={<Italian />} />
         <Route path="/recipes/japanese" element={<Japanese />} />
         <Route path="/recipes/mexican" element={<Mexican />} />
-
       </Routes>
     </Router>
   );
 }
-
 export default App;
