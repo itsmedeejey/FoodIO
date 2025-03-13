@@ -8,7 +8,7 @@ const SavedRecipes = () => {
   useEffect(() => {
     const fetchSavedRecipes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/recipes/savedRecipes/${userID}`);
+        const response = await axios.get(`https://foodio-backend-cgsj.onrender.com/recipes/savedRecipes/${userID}`);
         setSavedRecipes(response.data.savedRecipes);
       } catch (err) {
         console.log(err);
