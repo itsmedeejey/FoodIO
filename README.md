@@ -45,17 +45,21 @@ Install dependencies:
 
 # Backend dependencies
 cd server
+
 npm install
 
 # Frontend dependencies
 cd ../client
+
 npm install
 
 Set up environment variables:
 Create a .env file in the server directory and add:
 
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_secret_key
+
 PORT=5000
 
 Run the development servers:
@@ -70,7 +74,9 @@ npm start
 # 📂 Project Structure
 
 foodio/
+
 │-- client/      # React frontend
+
 │-- server/      # Express backend
 │-- models/      # Mongoose models
 │-- routes/      # API routes
