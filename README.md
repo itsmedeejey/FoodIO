@@ -65,10 +65,12 @@ PORT=5000
 Run the development servers:
 # Start backend server
 cd server
+
 npm run dev
 
 # Start frontend server
 cd ../client
+
 npm start
 
 # 📂 Project Structure
@@ -78,10 +80,18 @@ foodio/
 │-- client/      # React frontend
 
 │-- server/      # Express backend
+
 │-- models/      # Mongoose models
+
 │-- routes/      # API routes
+
 │-- controllers/ # Business logic
+
 │-- config/      # Configuration files
+
 │-- public/      # Static assets
+
 │-- .env         # Environment variables
+
 │-- README.md    # Project documentation
+
