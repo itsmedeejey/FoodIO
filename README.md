@@ -1,6 +1,6 @@
 # Foodio - Recipe Sharing Platform
 
-🍽️ Overview
+# 🍽️ Overview
 
 Foodio is a full-stack MERN (MongoDB, Express.js, React, Node.js) application that allows users to create, edit, delete, and share their favorite recipes. Users can also mark recipes as favorites, save them for later, and explore new dishes shared by others.
 
