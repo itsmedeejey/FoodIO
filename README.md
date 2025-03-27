@@ -34,14 +34,14 @@ Authentication: JSON Web Tokens (JWT), bcrypt.js
 
 API Requests: Axios
 
-# 🎯 Installation & Setup
+🎯 Installation & Setup
 
 # Clone the repository:
 
 git clone https://github.com/your-username/foodio.git
 cd foodio
 
-# Install dependencies:
+Install dependencies:
 
 # Backend dependencies
 cd server
