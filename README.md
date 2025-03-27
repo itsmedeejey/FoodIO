@@ -1,10 +1,10 @@
-Foodio - Recipe Sharing Platform
+# Foodio - Recipe Sharing Platform
 
 🍽️ Overview
 
 Foodio is a full-stack MERN (MongoDB, Express.js, React, Node.js) application that allows users to create, edit, delete, and share their favorite recipes. Users can also mark recipes as favorites, save them for later, and explore new dishes shared by others.
 
-🚀 Features
+# 🚀 Features
 
 📝 Add New Recipes - Users can create and share their own recipes.
 
@@ -22,7 +22,7 @@ Foodio is a full-stack MERN (MongoDB, Express.js, React, Node.js) application th
 
 🔍 Search Recipes - Find recipes quickly using keywords.
 
-🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 Frontend: React, React Router, Tailwind CSS
 
@@ -34,14 +34,14 @@ Authentication: JSON Web Tokens (JWT), bcrypt.js
 
 API Requests: Axios
 
-🎯 Installation & Setup
+# 🎯 Installation & Setup
 
-Clone the repository:
+# Clone the repository:
 
 git clone https://github.com/your-username/foodio.git
 cd foodio
 
-Install dependencies:
+# Install dependencies:
 
 # Backend dependencies
 cd server
@@ -67,7 +67,7 @@ npm run dev
 cd ../client
 npm start
 
-📂 Project Structure
+# 📂 Project Structure
 
 foodio/
 │-- client/      # React frontend
