@@ -169,10 +169,6 @@ POST /api/foods
 
 ---
 
-Absolutely, Prashanti! Here’s your extended `LEARN.md`—**tailored precisely for FoodIO**, with relevant tech stacks, project scope, and contributor journey. I've adapted the style and structure of your original Todo List guide so that it resonates with FoodIO’s full stack ambitions and GSSoC 2025 goals 🍱💻
-
----
-
 ## 🎯 Project Goals and Learning Outcomes
 
 By studying and contributing to FoodIO, you will:
