@@ -1,7 +1,3 @@
-Thanks for sharing that awesome `LEARN.md` from your Todo List project, Prashanti! I can now adapt a version of it for **FoodIO** that mirrors its clarity, structure, and educational value—so contributors not only contribute, but genuinely *learn* while doing it 🍱✨
-
----
-
 ## 🎓 LEARN.md – Deep Dive into the FoodIO Project
 
 Welcome to FoodIO! Whether you're just starting your open-source journey or leveling up your full stack skills, this guide will walk you through the structure, technologies, and design decisions behind FoodIO—and help you contribute meaningfully.
