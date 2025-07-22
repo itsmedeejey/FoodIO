@@ -183,19 +183,19 @@ const Home = () => {
             <div className="col-md-4 mb-3">
                 <h5>Quick Links</h5>
                 <ul className="list-unstyled">
-                    <li><Link to="/top-rated" className="text-light text-decoration-none">Top Rated</Link></li>
-                    <li><Link to="/trending" className="text-light text-decoration-none">Trending</Link></li>
-                    <li><Link to="/submit" className="text-light text-decoration-none">Submit Recipe</Link></li>
-                    <li><Link to="/community" className="text-light text-decoration-none">Community</Link></li>
+                    <li><Link to="/top-rated" className="text-white text-decoration-none hover-effect">Top Rated</Link></li>
+                    <li><Link to="/trending" className="text-light text-decoration-none hover-effect">Trending</Link></li>
+                    <li><Link to="/submit" className="text-light text-decoration-none hover-effect">Submit Recipe</Link></li>
+                    <li><Link to="/community" className="text-light text-decoration-none hover-effect">Community</Link></li>
                 </ul>
             </div>
             <div className="col-md-4 mb-3">
                 <h5>Connect With Us</h5>
                 <div className="d-flex gap-3">
-                    <a href="/facebook" className="text-light"><i className="bi bi-facebook fs-4"></i></a>
-                    <a href="/instagram" className="text-light"><i className="bi bi-instagram fs-4"></i></a>
-                    <a href="/twitter" className="text-light"><i className="bi bi-twitter fs-4"></i></a>
-                    <a href="/interest" className="text-light"><i className="bi bi-pinterest fs-4"></i></a>
+                    <a href="/facebook" className="text-light text-decoration-none hover-effect_1"><i className="bi bi-facebook fs-4"></i></a>
+                    <a href="/instagram" className="text-light text-decoration-none hover-effect_2"><i className="bi bi-instagram fs-4"></i></a>
+                    <a href="/twitter" className="text-light text-decoration-none hover-effect_3"><i className="bi bi-twitter fs-4"></i></a>
+                    <a href="/interest" className="text-light text-decoration-none hover-effect_4"><i className="bi bi-pinterest fs-4"></i></a>
                 </div>
             </div>
         </div>
