@@ -107,6 +107,10 @@ const Home = () => {
         
             // Create share dialog
             const shareDialog = document.createElement('dialog');
+            
+            //fixing the position
+            document.body.style.overflow = 'hidden';
+
             shareDialog.innerHTML = `
                 <div class="share-options p-3">
                     <h5>Share Recipe</h5>
@@ -119,12 +123,30 @@ const Home = () => {
                     <button onclick="window.open('https://wa.me/?text=${shareData.title} ${shareData.url}')">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </button>
+                    <button id="closeDialog">Close</button>
                 </div>
             `;
+            shareDialog.querySelector('#closeDialog').addEventListener('click', () => {
+                shareDialog.close();
+                document.body.removeChild(shareDialog);
+                document.removeEventListener('click', handleOutsideClick);
+            });
+
             document.body.appendChild(shareDialog);
             shareDialog.showModal();
-        }
-    };
+            const handleOutsideClick = (e) => {
+                if (!shareDialog.contains(e.target)) {
+                        shareDialog.close();
+                        document.body.removeChild(shareDialog);
+                        document.removeEventListener('click', handleOutsideClick);
+                    }           
+            };
+
+        setTimeout(() => {
+            document.addEventListener('click', handleOutsideClick);
+        }, 10);
+    }
+};
     return (
       <div>
         <div id="recipeCarousel" className="carousel slide" data-bs-ride="carousel">
