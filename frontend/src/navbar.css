@@ -172,7 +172,16 @@
   .link-light:hover {
     opacity: 0.8;
   }
-  
+  /* Ai button styling */
+  .ChatButton{
+      text-decoration: none;
+      color: #ddd;
+      margin-left: 1rem;
+      font-size: 15px;
+  }
+  .ChatButton:hover{
+    color: #ff9900;
+  }
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .navbar-nav {
