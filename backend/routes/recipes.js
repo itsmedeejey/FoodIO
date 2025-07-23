@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { RecipesModel } from "../models/Recipes.js";
 import { UserModel } from "../models/Users.js";
+import axios from "axios";
 
 const router = express.Router();
 
@@ -58,5 +59,46 @@ router.get("/savedRecipes", async (req, res) => {
     res.json(err);
   }
 });
+
+router.post("/api/get-recipe", async (req, res) => {
+  const { diet, cuisine, time, ingredients } = req.body;
+
+  const prompt = `Generate a clear, beginner-friendly recipe using:
+Diet: ${diet}
+Cuisine: ${cuisine}
+Max preparation time: ${time} minutes
+Available ingredients: ${ingredients}
+
+Please provide:
+- Recipe name
+- Ingredients with quantities
+- Step-by-step preparation instructions.`;
+
+  try {
+    const response = await axios.post(
+      'https://openrouter.ai/api/v1/chat/completions',
+      {
+        model: 'moonshotai/kimi-k2:free', // adjust to your preferred model
+        messages: [
+          { role: 'system', content: 'You are a helpful AI recipe generator.' },
+          { role: 'user', content: prompt }
+        ]
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`
+        }
+      }
+    );
+
+    const recipe = response.data.choices[0].message.content;
+    res.json({ recipe });
+  } catch (error) {
+    console.error(error?.response?.data || error.message);
+    res.status(500).json({ error: "Failed to generate recipe. Please try again later." });
+  }
+});
+
 
 export { router as recipeRouter };

@@ -65,6 +65,11 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
               <a className="nav-link" href="/About">About</a>
             </li>
           </ul>
+        {/* add chat button */}
+          <div className="aiOption mx-5">
+              <a className='ChatButton' href='/ai-chat'>Chat with AI</a>
+          </div>
+
           <form className="form-inline d-flex align-items-center position-relative">
             <input 
               className="form-control mr-sm-2" 
@@ -105,6 +110,8 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             )}
             <a className="myprofile" href="/profile"><i className="fas fa-user"></i></a>
           </div>
+
+          
         </div>
       </nav>
     </div>
