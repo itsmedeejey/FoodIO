@@ -5,6 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "../App.css";  // Import CSS
 // import Login from "./Login";
 
+//firebase imports
+import { auth,provider } from "../services/firebase";
+import { signInWithPopup } from "firebase/auth";
+
 const Register = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -18,6 +22,24 @@ const Register = ({ setIsLoggedIn }) => {
     alert("Registration successful!");
     navigate("/login");
   };
+  const handleGoogleAuth = async () => {
+    try
+    {
+      let result = await signInWithPopup(auth,provider);
+      let token = await result.user.getIdToken();
+      console.log(token);
+      let res = await axios.post('http:localhost:3001/auth/register',{idtoken:token},
+        {
+          withCredentials:true
+        })
+        console.log(res.data);
+
+    }catch(err)
+    {
+      console.log("There's some issue with firebase", err);
+    }
+  };
+
 
   return (
     <div className="register">
@@ -28,8 +50,10 @@ const Register = ({ setIsLoggedIn }) => {
       <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button id="regbutton" onClick={handleRegister}>Register</button>
+      <button onClick={handleGoogleAuth} > Continue with google </button>
       <br /><br />
       <p>Already have an account? <Link to="/login" style={{ color: '#15467F' }}>Login</Link></p>
+      
     </div>
   );
 };
