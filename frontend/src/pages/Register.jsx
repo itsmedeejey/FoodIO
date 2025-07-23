@@ -7,7 +7,7 @@ import "../App.css";  // Import CSS
 
 //firebase imports
 import { auth,provider } from "../services/firebase";
-import { signInWithPopup } from "firebase/auth";
+import {  signInWithPopup, signInWithRedirect} from "firebase/auth";
 
 const Register = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -25,10 +25,10 @@ const Register = ({ setIsLoggedIn }) => {
   const handleGoogleAuth = async () => {
     try
     {
-      let result = await signInWithPopup(auth,provider);
-      let token = await result.user.getIdToken();
-      console.log(token);
-      let res = await axios.post('http:localhost:3001/auth/register',{idtoken:token},
+      const result = await signInWithPopup(auth,provider);
+      const  token = await result.user.getIdToken();
+      console.log('FRONTEND GETS THE TOKEN',token);
+      let res = await axios.post('http://localhost:3001/auth/firebaseAuth',{idtoken:token},
         {
           withCredentials:true
         })

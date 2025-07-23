@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../profile.css";
+import axios from 'axios';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -36,7 +37,20 @@ const Profile = () => {
         break;
     }
   };
+  //fetching user data
+  useEffect(()=>
+    {
+      console.log(document.cookie);
+      const fetchUserInfo = async ()=>
+        {
+          let res = await axios.get(`process.env.REACT_APP_BACKEND_URL`,
+            {
+              withCredentials:true
+            })
+            console.log(res.data);
+        }
 
+    })
   const handleLogout = () => {
     navigate('/');
   };

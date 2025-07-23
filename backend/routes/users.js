@@ -2,8 +2,10 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { UserModel } from "../models/Users.js";
-
+import firebaseAuth from "../controllers/authController.js";
 const router = express.Router();
+
+router.post('/firebaseAuth',firebaseAuth);
 
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body; // get the data from the request body

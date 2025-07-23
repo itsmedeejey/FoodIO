@@ -7,16 +7,26 @@ import {useRouter} from './routes/users.js';
 import {recipeRouter} from './routes/recipes.js';
 import cors from 'cors';
 import connectDB from './config/db.js'; //mongo db atlab import 
+import cookieParser from 'cookie-parser';
 // import User from "./models/Users.js"; 
 // import bcrypt from 'bcryptjs';
 
 
-connectDB();
+connectDB();  //connecttin mong atlas
 
 const app = express(); // Create an Express application
 const PORT = 3001;
-
-app.use(cors()); // Enable CORS for all routes
+console.log(process.env.FRONTEND_URL)
+app.use(cors({
+  origin: ['http://localhost:3000','http://localhost:3001','http://localhost:3002'],
+  credentials: true
+})); // Enable CORS for all routes
+app.use(cookieParser())
+;app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  next();
+});
 app.use(express.json()); // Middleware to parse JSON data
 // app.use(cors()); // Enable CORS for all routes
 
