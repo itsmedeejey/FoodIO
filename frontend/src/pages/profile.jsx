@@ -5,6 +5,8 @@ import axios from 'axios';
 
 const Profile = () => {
   const navigate = useNavigate();
+  //you can make the context of this user to avoid unnecessary useEffect calls
+  const [user,setUser] = useState({});
   const [activeSection, setActiveSection] = useState('myRecipes');
   const [userRecipes, setUserRecipes] = useState([
     { id: 1, title: "Pasta Carbonara", image: "ban.jpg" },
@@ -40,18 +42,43 @@ const Profile = () => {
   //fetching user data
   useEffect(()=>
     {
-      console.log(document.cookie);
       const fetchUserInfo = async ()=>
         {
-          let res = await axios.get(`process.env.REACT_APP_BACKEND_URL`,
+          try
+          {
+            //*** Your render url here ***
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/getProfile`,
             {
               withCredentials:true
-            })
+            });
+            console.log(res);
             console.log(res.data);
+            setUser(res.data);
+          }catch(err)
+          {
+            console.log("there's some issue",err);
+          }
+            
         }
+        fetchUserInfo();
 
-    })
-  const handleLogout = () => {
+    },[])
+  const handleLogout = async() => {
+    console.log(process.env.REACT_APP_BACKEND_URL)
+    try
+          {
+            //*** Your render url here ***
+            let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`,
+            {
+              withCredentials:true
+            });
+            console.log(res);
+            console.log(res.data);
+            setUser(res.data);
+          }catch(err)
+          {
+            console.log("there's some issue",err);
+          }
     navigate('/');
   };
 
@@ -90,8 +117,8 @@ const Profile = () => {
     
       <div className="profile-content">
         <div className="profile-header">
-          <img src="ban.jpg" alt="Profile" className="profile-image" />
-          <h1 className="username">Prashanti Hebbar</h1>
+          <img src={user.pfp || 'ban.jpg'} alt="Profile" className="profile-image"   referrerPolicy="no-referrer" />
+          <h1 className="username">{user.username || 'Prashanti Hebbar'}</h1>
         </div>
         
         <div className="recipe-buttons">

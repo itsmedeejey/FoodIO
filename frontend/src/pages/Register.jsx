@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../App.css";  // Import CSS
 // import Login from "./Login";
 
-//firebase imports
+// *** firebase imports ***
 import { auth,provider } from "../services/firebase";
 import {  signInWithPopup, signInWithRedirect} from "firebase/auth";
 
@@ -15,11 +15,36 @@ const Register = ({ setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  // THis is your previous code  **********
+
+
+  // const handleRegister = async () => {
+  //   await axios.post("https://foodio-backend-cgsj.onrender.com/auth/register", { username, email, password });
+  //   localStorage.setItem("username", username);
+  //   setIsLoggedIn(true);
+  //   alert("Registration successful!");
+  //   navigate("/login");
+  // };
+
+
+  // New  code with previous error handling  **********
   const handleRegister = async () => {
-    await axios.post("https://foodio-backend-cgsj.onrender.com/auth/register", { username, email, password });
-    localStorage.setItem("username", username);
-    setIsLoggedIn(true);
-    alert("Registration successful!");
+              /// **** your render url  ****
+    // await axios.post("https://foodio-backend-cgsj.onrender.com/auth/register", { username, email, password });
+            /// local host
+            try
+            {
+              // ***Change this url to your render url***(IMPORTANT)
+              let res = await axios.post("http://localhost:3001/auth/register", { username, email, password });
+              localStorage.setItem("username", username);
+              setIsLoggedIn(true);
+              alert("Registration successful!");
+              
+            }catch(err)
+            {
+              console.log(err);
+              alert("Registration failed!");
+            }
     navigate("/login");
   };
   const handleGoogleAuth = async () => {

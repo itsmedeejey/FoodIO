@@ -20,7 +20,10 @@
 
 ### 📁 Frontend
 - `/services/firebase.js` – Firebase client setup (auth + config). (NEWLY ADDED)
+
 - `/src/pages/register.jsx` - added google sign in button + handle google auth function (CHANGES)
+
+- `/src/pages/profile.jsx` - added dynamic profile picture and username set using data stored in database (CHANGES)
 ---
 
 

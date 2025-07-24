@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../services/firebase";
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -39,6 +41,26 @@ const Login = ({ setIsLoggedIn }) => {
       alert("Login failed. Please check your credentials.");
     }
   };
+  const handleGoogleAuth = async () => {
+    try
+    {
+      const result = await signInWithPopup(auth,provider);
+      const  token = await result.user.getIdToken();
+      console.log('FRONTEND GETS THE TOKEN',token);
+      let res = await axios.post('http://localhost:3001/auth/firebaseAuth',{idtoken:token},
+        {
+          withCredentials:true
+        })
+        console.log(res.data);
+         setIsLoggedIn(true);
+        alert("Login successful!");
+        navigate("/home");
+
+    }catch(err)
+    {
+      console.log("There's some issue with firebase", err);
+    }
+  };
 
   return (
     <div className="login">
@@ -62,6 +84,7 @@ const Login = ({ setIsLoggedIn }) => {
         <br />
         <button id="loginbutton" type="submit">Login</button>
       </form>
+        <button id="googleLogin" onClick={handleGoogleAuth}>Continue with google </button>
       <br /><br />
       <p>New user? <Link to="/register" style={{ color: '#3b73af' }}>Register</Link></p>
     </div>
