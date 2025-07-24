@@ -22,6 +22,8 @@ const Login = ({ setIsLoggedIn }) => {
       const response = await axios.post("https://foodio-backend-cgsj.onrender.com/auth/login", {
         username,
         password
+      },{
+        withCredentials:true
       });
 
       console.log('Login response:', response.data);
@@ -46,12 +48,10 @@ const Login = ({ setIsLoggedIn }) => {
     {
       const result = await signInWithPopup(auth,provider);
       const  token = await result.user.getIdToken();
-      console.log('FRONTEND GETS THE TOKEN',token);
-      let res = await axios.post('http://localhost:3001/auth/firebaseAuth',{idtoken:token},
+      let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/firebaseAuth`,{idtoken:token},
         {
           withCredentials:true
         })
-        console.log(res.data);
          setIsLoggedIn(true);
         alert("Login successful!");
         navigate("/home");

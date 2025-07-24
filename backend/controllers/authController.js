@@ -1,10 +1,11 @@
 import admin from "../config/firebaseAuth.js";
 import { UserModel } from "../models/Users.js";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import tokenGenerator from "../utils/jwtTokenGen.js";
 const firebaseAuth = async (req, res) => {   // *** firebase authentication *** (handle both login and register)
   const { idtoken } = req.body;
-  console.log('BACKEND GETS THE TOKEN',idtoken);
+
   if (!idtoken) {
     console.log("token not found");
     res.status(400).json({ mess: "no token found" });
@@ -15,50 +16,29 @@ const firebaseAuth = async (req, res) => {   // *** firebase authentication *** 
 
     const { email, name, uid, picture } = decoded;
 
-    console.log("Email:", email);
-    console.log("Name:", name);
-    console.log("uid", uid);
-    console.log("Picture URL:", picture);
     let user = await UserModel.findOne({ email });
     if (user) {
-        console.log('user already exits ',user);
+
         if (user.authProvider != "firebase" && user.authProvider != "both") {     //connecting user to both firebase and local
             user.profilePhoto = user.profilePhoto || picture ;
             user.authProvider = "both";
             await user.save();
         }
         
-        const token = jwt.sign(                                    //generating fresh jwt for the existing user
-            
-            { email: user.email, id: user._id },
-            process.env.JWT_SECRET,
-            { expiresIn: "7d" }
-        );
-        res.cookie("token",token ,{
-            httpOnly:true,
-            maxAge:7*24*60*60*1000
-        });
+        tokenGenerator(user.email,user._id,res);
         res.status(200).json({ mess: "user already exist, updated the cookie" });
-      return
-    } else {
+        return
+      } else {
         let newUser = await UserModel.create({       //creating new user
-      
-            email,
-            username: name,
-            authProvider: "firebase",
-            profilePhoto: picture,
-            uid,
+          
+          email,
+          username: name,
+          authProvider: "firebase",
+          profilePhoto: picture,
+          uid,
         });
-        const token = jwt.sign(                       // generating new cookie
-            { email: newUser.email, id:newUser._id },
-            process.env.JWT_SECRET,
-            { expiresIn: "7d" }
-        );
-        console.log('user already exits ',newUser);
-      res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-       });
+        tokenGenerator(newUser.email,newUser._id,res);
+       
       res.status(200).json({ mess: "user registered successfully" ,newUser});
       return;
     }
@@ -75,17 +55,35 @@ const firebaseAuth = async (req, res) => {   // *** firebase authentication *** 
 const Authregister = async (req, res) => {         // *** Register funtion *** 
 
   const { username, email, password } = req.body; // get the data from the request body
-  const user = await UserModel.findOne({ username }); // check if user already exists
+  const user = await UserModel.findOne({ email }); // check if user already exists
 
   if (user) {
-    return res.json({ message: "User already exists" }); // if user already exists, return an error message
-  }
+    if(user.authProvider != 'firebase' ) // user exist with local or both authprovider
+      {
+        return res.json({ message: "User already exists" }); // if user already exists, return an error message
+      }
+      else // user exist with firebase authPRovider
+        {
+          const hashedPassword = await bcrypt.hash(password, 10); // hash the password
+          const updatedUser = await UserModel.findByIdAndUpdate(
+            user._id,
+            { 
+              password: hashedPassword,
+              authProvider: 'both' //  Both fields in the update object
+            },
+            { new: true } 
+            );
+            tokenGenerator(updatedUser.email,updatedUser._id,res);
+            res.json({ message: "User Registered Successfully!" }); // send the user data to the client
+            return;
+        }
+      }
+      const hashedPassword = await bcrypt.hash(password, 10); // hash the password
 
-  const hashedPassword = await bcrypt.hash(password, 10); // hash the password
 
   const newUser = new UserModel({ username, email, password: hashedPassword,authProvider:'local' }); // create a new user
   await newUser.save(); // save the user to the database
-
+  tokenGenerator(newUser.email,newUser._id,res);
   res.json({ message: "User Registered Successfully!" }); // send the user data to the client
 };
 
@@ -101,21 +99,19 @@ const Authlogin = async (req, res) => {    // *** Login funtion ***
   if (!isPasswordValid) {
     return res.json({ message: "Username or password is incorrect" }); // if password is incorrect, return an error message
   }
-  const token = jwt.sign({ id: user._id }, "secret"); // create a token
-  res.json({ token, userID: user._id }); // send the token to the client)
+
+  tokenGenerator(user.email,user._id,res);
+  res.json({ userID: user._id }); // send the token to the client)
 };
 
 
 const logout = async(req,res)=>    // logging out the user (removing jwt token or cookie)
   {
-    console.log('reached log out');
     try {
       // Clear the cookie with matching options
       res.clearCookie("token", {
         httpOnly: true,
       });
-      console.log('cookies cleared');
-      console.log('cookies :',req.cookies);
 
     res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
@@ -127,13 +123,12 @@ const logout = async(req,res)=>    // logging out the user (removing jwt token o
 
 const getProfile = async(req,res)=>    // geting user data (only userName and profile picture ,You can furthur add recipices or other data stored in th database)
   {
-    console.log('user',req.user)
     try
     {
       let user = await UserModel.findOne({_id:req.user.id})
       if(user)
         {
-          console.log('data sent')
+
           res.status(200).json({username:user.username,pfp:user.profilePhoto})
           return;
         }

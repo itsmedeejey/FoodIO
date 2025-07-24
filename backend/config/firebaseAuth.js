@@ -1,6 +1,3 @@
-// firebaseAdmin.js
-// const admin = require("firebase-admin");
-// const serviceAccount = require("../secret/serviceAccountKey.json");
 import admin from "firebase-admin";
 import serviceAccount from "../secret/serviceAccountKey.json" assert { type: "json" };
 

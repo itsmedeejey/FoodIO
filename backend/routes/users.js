@@ -13,7 +13,7 @@ router.post('/login',Authlogin);
 router.get('/getProfile',verifyIdToken,getProfile);
 router.get('/logout',logout);
 
-// *** Your previous register handler ***
+// ### *** Your previous register handler ***
 
 // router.post("/register", async (req, res) => {
 //   const { username, email, password } = req.body; // get the data from the request body

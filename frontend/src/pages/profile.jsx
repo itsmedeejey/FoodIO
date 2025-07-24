@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "../profile.css";
 import axios from 'axios';
 
-const Profile = () => {
+const Profile = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   //you can make the context of this user to avoid unnecessary useEffect calls
   const [user,setUser] = useState({});
@@ -51,8 +51,6 @@ const Profile = () => {
             {
               withCredentials:true
             });
-            console.log(res);
-            console.log(res.data);
             setUser(res.data);
           }catch(err)
           {
@@ -64,7 +62,6 @@ const Profile = () => {
 
     },[])
   const handleLogout = async() => {
-    console.log(process.env.REACT_APP_BACKEND_URL)
     try
           {
             //*** Your render url here ***
@@ -72,9 +69,7 @@ const Profile = () => {
             {
               withCredentials:true
             });
-            console.log(res);
-            console.log(res.data);
-            setUser(res.data);
+            setIsLoggedIn(false);
           }catch(err)
           {
             console.log("there's some issue",err);

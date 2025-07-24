@@ -31,12 +31,15 @@ const Register = ({ setIsLoggedIn }) => {
   const handleRegister = async () => {
               /// **** your render url  ****
     // await axios.post("https://foodio-backend-cgsj.onrender.com/auth/register", { username, email, password });
-            /// local host
+
             try
             {
               // ***Change this url to your render url***(IMPORTANT)
-              let res = await axios.post("http://localhost:3001/auth/register", { username, email, password });
-              localStorage.setItem("username", username);
+              let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, { username, email, password },
+                {
+                  withCredentials:true
+                });
+              // localStorage.setItem("username", username);
               setIsLoggedIn(true);
               alert("Registration successful!");
               
@@ -45,20 +48,20 @@ const Register = ({ setIsLoggedIn }) => {
               console.log(err);
               alert("Registration failed!");
             }
-    navigate("/login");
-  };
-  const handleGoogleAuth = async () => {
-    try
-    {
-      const result = await signInWithPopup(auth,provider);
-      const  token = await result.user.getIdToken();
-      console.log('FRONTEND GETS THE TOKEN',token);
-      let res = await axios.post('http://localhost:3001/auth/firebaseAuth',{idtoken:token},
-        {
-          withCredentials:true
-        })
-        console.log(res.data);
-
+          };
+          const handleGoogleAuth = async () => {
+            try
+            {
+              const result = await signInWithPopup(auth,provider);
+              const  token = await result.user.getIdToken();
+              let res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/firebaseAuth`,{idtoken:token},
+                {
+                  withCredentials:true
+                })
+                setIsLoggedIn(true);
+                alert("Registration successful!");
+                navigate("/home");
+                
     }catch(err)
     {
       console.log("There's some issue with firebase", err);

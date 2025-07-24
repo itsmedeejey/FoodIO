@@ -1,14 +1,33 @@
 # Firebase Authentication Integration 🔐
 
+
+## I haven't touched your code , where i had made the changes i just have commented out your code
+## all the logics have comments for  understanding 
+
+
 ## 🔧 What Was Implemented
 - Added **Firebase Google Sign-In** to the frontend.
 - Created backend route `POST /auth/firebaseAuth` to handle Firebase user authentication.
 - If user is new, they are added to MongoDB. If user exists, they are logged in.
-- Backend issues a **JWT token stored in HTTP-only cookies**.
+- Backend issues a **JWT token stored in HTTP-only cookies**.(`validity 7 days`)
 - Added support for **multiple auth providers** (`firebase`, `local`, or `both`).
-
+- added logout funtionality (`removes the cookie or jwt token`)
+- dynamic loading of pfp and username based on the user data in the database (`also added fallback if data not present`);
 ---
 
+## 🔧 What could be improved or not working(edge cases)
+
+
+- log out not showing on the home page and profile after loggin in or registering due to anchar tag ,causing reloading
+ 
+-  /register and /login route could be improved 
+
+- you are using anchor tag in the navbar please dont do that that is causing reloading of the page when route changes
+
+
+- in login please instead of username ask for the email as , firebase username and their entered username could be differnt whihc will result in data duplicacy  
+----
+- 
 ### 🗂️ Folder Changes
 
 ### 📁 Backend
@@ -18,12 +37,18 @@
 
 - `/secret/serviceAccountKey.json `– Firebase admin credentials.   (NEWLY ADDED)
 
+- `/models/user` added uid(from firebase), password (required -false),profilePicture-url from firebase (NEWLY ADDED AND CHANGES)
+
 ### 📁 Frontend
 - `/services/firebase.js` – Firebase client setup (auth + config). (NEWLY ADDED)
 
 - `/src/pages/register.jsx` - added google sign in button + handle google auth function (CHANGES)
 
+- `/src/pages/login.jsx` - added google sign in button + handle google auth function (CHANGES)
+
 - `/src/pages/profile.jsx` - added dynamic profile picture and username set using data stored in database (CHANGES)
+
+- also in fronted validate the email , any random thing is getting accepted
 ---
 
 
@@ -74,12 +99,14 @@ REACT_APP_FIREBASE_API=your_firebase_api_key
 ### ✅ SETUP REQUIRED FOR PROPER FUNTIONING --  (IMPORTANT )
 
 ### 🚀 Setup Instructions
-1. ## MongoDB Setup
+1. ## frontend setup
+ Change the REACT_APP_BACKEND_URL in the .env file to your render backend url
+2. ## MongoDB Setup
 
 Add MONGO_URI in your backend .env (from MongoDB Atlas or local).
 
 -----
-2. ## Firebase Setup
+3. ## Firebase Setup
 
  - In Firebase Console, create a new project.
  

@@ -16,23 +16,20 @@ connectDB();  //connecttin mong atlas
 
 const app = express(); // Create an Express application
 const PORT = 3001;
-console.log(process.env.FRONTEND_URL)
-app.use(cors({
+
+app.use(cors({   // we are using credential like cookies so we must ahve to specify the origin cant leave * 
   origin: ['http://localhost:3000','http://localhost:3001','http://localhost:3002'],
   credentials: true
-})); // Enable CORS for all routes
-app.use(cookieParser())
-;app.use(express.json());
-app.use((req, res, next) => {
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
-  next();
-});
+}));
+
+
+app.use(cookieParser()); // for using cookies 
 app.use(express.json()); // Middleware to parse JSON data
-// app.use(cors()); // Enable CORS for all routes
 
 app.use("/auth", useRouter); // Use the userRouter for routes starting with /auth
 app.use("/recipes", recipeRouter); // Use the recipeRouter for routes starting with /recipes
 
+// **  your previous mongo atlas connect move it to .env ***
 // mongoose.connect("mongodb+srv://prashantihebbar344:prashantihebbar344@cluster0.s1nnc.mongodb.net/db2025?retryWrites=true&w=majority&appName=Cluster0");
 
 app.listen(PORT, () => {

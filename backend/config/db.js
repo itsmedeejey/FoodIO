@@ -1,6 +1,4 @@
 import mongoose from "mongoose"
-console.log(process.env.MONGO_URI)
-console.log(process.env.PORT)
 const connectDB = async () =>
 {
     try
@@ -9,7 +7,7 @@ const connectDB = async () =>
         console.log('Atlas connected');
     }catch(err)
     {
-        console.log("there's some error ",err);
+        console.log("there's some error with mogno atlas ",err);
         process.exit(1);
     }
 } 
