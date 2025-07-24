@@ -185,16 +185,17 @@ const Home = () => {
           </button>
         </div>
 
-        <div className="container mt-4">
-                <h2><b>Top Rated Recipes</b></h2>
+        <div className="container ">
+                <h2 className='mt-5'><b>Top Rated Recipes</b></h2>
                 {renderRecipes('topRated')}
 
-                <h2><b>Trending Recipes</b></h2>
+                <h2 className='mt-5'><b>Trending Recipes</b></h2>
                 {renderRecipes('trending')}
 
-                <h2><b>Newest Recipes</b></h2>
+                <h2 className='mt-5'><b>Newest Recipes</b></h2>
                 {renderRecipes('newest')}
         </div>
+        
         <footer className="bg-dark text-light mt-5 py-4">
     <div className="container">
         <div className="row">
