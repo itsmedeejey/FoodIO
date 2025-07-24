@@ -122,7 +122,8 @@ body{
 .carousel-control-next {
   width: 50px;
   height: 50px;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  background-color: white;
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
@@ -131,7 +132,8 @@ body{
 
 .carousel-control-prev:hover, 
 .carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  background-color: dark;
 }
 
 /* Navigation Icons */
@@ -140,6 +142,13 @@ body{
   filter: invert(100%);
   width: 20px;
   height: 20px;
+  opacity: 0.5; /* Light white by default */
+  transition: opacity 0.3s;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  opacity: 1; /* Full white on hover */
 }
 
 /* Carousel Indicators (Dots) */
