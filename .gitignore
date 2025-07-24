@@ -1,6 +1,8 @@
 node_modules/
+
 #enviornment vairables
 
 frontend/.env
 backend/.env
 backend/secret/serviceAccountKey.json
+
