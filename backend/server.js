@@ -10,6 +10,9 @@ import cors from 'cors';
 const app = express(); // Create an Express application
 const PORT = 3001;
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON data
 // app.use(cors()); // Enable CORS for all routes
@@ -17,7 +20,7 @@ app.use(express.json()); // Middleware to parse JSON data
 app.use("/auth", useRouter); // Use the userRouter for routes starting with /auth
 app.use("/recipes", recipeRouter); // Use the recipeRouter for routes starting with /recipes
 
-mongoose.connect("mongodb+srv://prashantihebbar344:prashantihebbar344@cluster0.s1nnc.mongodb.net/db2025?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect(process.env.MONGO_URI);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

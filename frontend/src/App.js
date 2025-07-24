@@ -38,6 +38,7 @@ function App() {
   
   return (
     <Router>
+      <ScrollToTop />
       <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         <Route path="/" element={<Home /> } />
@@ -68,6 +69,7 @@ function App() {
         <Route path="/recipes/italian" element={<Italian />} />
         <Route path="/recipes/japanese" element={<Japanese />} />
         <Route path="/recipes/mexican" element={<Mexican />} />
+        <Route path="/ai-chat" element={<AIChatPage/>}/>
       </Routes>
       <Footer />
     </Router>
