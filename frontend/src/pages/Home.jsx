@@ -161,48 +161,17 @@ const Home = () => {
           </button>
         </div>
 
-        <div className="container mt-4">
-                <h2><b>Top Rated Recipes</b></h2>
+        <div className="container ">
+                <h2 className='mt-5'><b>Top Rated Recipes</b></h2>
                 {renderRecipes('topRated')}
 
-                <h2><b>Trending Recipes</b></h2>
+                <h2 className='mt-5'><b>Trending Recipes</b></h2>
                 {renderRecipes('trending')}
 
-                <h2><b>Newest Recipes</b></h2>
+                <h2 className='mt-5'><b>Newest Recipes</b></h2>
                 {renderRecipes('newest')}
         </div>
-        <footer className="bg-dark text-light mt-5 py-4">
-    <div className="container">
-        <div className="row">
-            <div className="col-md-4 mb-3">
-                <h5>About Foodio</h5>
-                <p>A collaborative recipe sharing platform designed to make cooking a social experience. Join our community of culinary enthusiasts!</p>
-            </div>
-            <div className="col-md-4 mb-3">
-                <h5>Quick Links</h5>
-                <ul className="list-unstyled">
-                    <li><a href="#" className="text-light text-decoration-none">Top Rated</a></li>
-                    <li><a href="#" className="text-light text-decoration-none">Trending</a></li>
-                    <li><a href="#" className="text-light text-decoration-none">Submit Recipe</a></li>
-                    <li><a href="#" className="text-light text-decoration-none">Community</a></li>
-                </ul>
-            </div>
-            <div className="col-md-4 mb-3">
-                <h5>Connect With Us</h5>
-                <div className="d-flex gap-3">
-                    <a href="#" className="text-light"><i className="bi bi-facebook fs-4"></i></a>
-                    <a href="#" className="text-light"><i className="bi bi-instagram fs-4"></i></a>
-                    <a href="#" className="text-light"><i className="bi bi-twitter fs-4"></i></a>
-                    <a href="#" className="text-light"><i className="bi bi-pinterest fs-4"></i></a>
-                </div>
-            </div>
-        </div>
-        <hr className="bg-light" />
-        <div className="text-center">
-            <p className="mb-0">© 2024 Foodio. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+        
 
       </div>
     );

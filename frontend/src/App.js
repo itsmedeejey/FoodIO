@@ -26,6 +26,7 @@ import Indian from "./pages/categories/Indian";
 import Italian from "./pages/categories/Itallian";
 import Japanese from "./pages/categories/Japanese";
 import Mexican from "./pages/categories/Mexican";
+import Footer from "./components/Footer";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,6 +69,7 @@ function App() {
         <Route path="/recipes/japanese" element={<Japanese />} />
         <Route path="/recipes/mexican" element={<Mexican />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
