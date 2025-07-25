@@ -26,7 +26,8 @@ import Indian from "./pages/categories/Indian";
 import Italian from "./pages/categories/Itallian";
 import Japanese from "./pages/categories/Japanese";
 import Mexican from "./pages/categories/Mexican";
-import Footer from "./components/Footer";
+import AIChatPage from "./pages/AIChatPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,7 +72,6 @@ function App() {
         <Route path="/recipes/mexican" element={<Mexican />} />
         <Route path="/ai-chat" element={<AIChatPage/>}/>
       </Routes>
-      <Footer />
     </Router>
   );
 }
