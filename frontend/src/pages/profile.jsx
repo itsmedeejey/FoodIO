@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../profile.css";
-import axios from 'axios';
 
-const Profile = ({ setIsLoggedIn }) => {
+const Profile = () => {
   const navigate = useNavigate();
-  //you can make the context of this user to avoid unnecessary useEffect calls
-  const [user,setUser] = useState({});
   const [activeSection, setActiveSection] = useState('myRecipes');
   const [userRecipes, setUserRecipes] = useState([
     { id: 1, title: "Pasta Carbonara", image: "ban.jpg" },
@@ -39,41 +36,8 @@ const Profile = ({ setIsLoggedIn }) => {
         break;
     }
   };
-  //fetching user data
-  useEffect(()=>
-    {
-      const fetchUserInfo = async ()=>
-        {
-          try
-          {
-            //*** Your render url here ***
-            let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/getProfile`,
-            {
-              withCredentials:true
-            });
-            setUser(res.data);
-          }catch(err)
-          {
-            console.log("there's some issue",err);
-          }
-            
-        }
-        fetchUserInfo();
 
-    },[])
-  const handleLogout = async() => {
-    try
-          {
-            //*** Your render url here ***
-            let res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`,
-            {
-              withCredentials:true
-            });
-            setIsLoggedIn(false);
-          }catch(err)
-          {
-            console.log("there's some issue",err);
-          }
+  const handleLogout = () => {
     navigate('/');
   };
 
@@ -112,8 +76,8 @@ const Profile = ({ setIsLoggedIn }) => {
     
       <div className="profile-content">
         <div className="profile-header">
-          <img src={user.pfp || 'ban.jpg'} alt="Profile" className="profile-image"   referrerPolicy="no-referrer" />
-          <h1 className="username">{user.username || 'Prashanti Hebbar'}</h1>
+          <img src="ban.jpg" alt="Profile" className="profile-image" />
+          <h1 className="username">Prashanti Hebbar</h1>
         </div>
         
         <div className="recipe-buttons">
