@@ -66,9 +66,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
             </li>
           </ul>
         {/* add chat button */}
-          <div className="aiOption mx-5">
               <a className='ChatButton' href='/ai-chat'>Chat with AI</a>
-          </div>
 
           <form className="form-inline d-flex align-items-center position-relative">
             <input 
@@ -94,7 +92,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
               </div>
             )}
           </form>
-          <div className="auth-links">
+          <div className="auth-buttons">
             {isLoggedIn ? (
               <button 
                 className="btn btn-danger ms-2" 
