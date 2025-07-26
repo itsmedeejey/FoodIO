@@ -17,7 +17,7 @@ const EditProfile = ({ onClose }) => {
         const token = localStorage.getItem("token");
         const userID = localStorage.getItem("userID");
         const response = await axios.get(
-          `http://localhost:3001/auth/user/${userID}`,
+          `https://foodio-backend-cgsj.onrender.com/auth/user/${userID}`,
           { 
             headers: { 
               Authorization: `Bearer ${token}` 
@@ -65,7 +65,7 @@ const EditProfile = ({ onClose }) => {
         const userID = localStorage.getItem("userID");
         
         await axios.put(
-          `http://localhost:3001/auth/user/${userID}`,
+          `https://foodio-backend-cgsj.onrender.com/auth/user/${userID}`,
           formData,
           {
             headers: {
