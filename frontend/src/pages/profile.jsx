@@ -37,10 +37,6 @@ const Profile = () => {
     }
   };
 
-  const handleLogout = () => {
-    navigate('/');
-  };
-
   const RecipeGrid = ({ title, recipes, setRecipes }) => (
     <div className="recipes-grid">
       <div className="recipes-container">
@@ -71,7 +67,6 @@ const Profile = () => {
     <div className="profile-page">
       <div className="banner">
         <img src="ban.jpg" alt="Profile Banner" />
-        <button className="banner-logout-btn" onClick={handleLogout}>Logout</button>
       </div>
     
       <div className="profile-content">
