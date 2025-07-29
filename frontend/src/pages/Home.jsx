@@ -110,7 +110,7 @@ const Home = () => {
                         <div className="card-body">
                             <h5 className="card-title">{recipe.title}</h5>
                             <p className="card-text">Rating: {recipe.rating}</p>
-                            <a href={`/ViewRecipe?id=${recipe.id}`} className="btn btn-primary">View Recipe</a>
+                            <Link to={`/ViewRecipe?id=${recipe.id}`} className="btn btn-primary">View Recipe</Link>
                         </div>
                     </div>
                 </div>
