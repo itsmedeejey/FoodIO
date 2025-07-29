@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditProfile from '../components/EditProfile';
+import { Link, useNavigate } from 'react-router-dom';
 import "../profile.css";
 
 const Profile = () => {
@@ -39,10 +40,6 @@ const Profile = () => {
     }
   };
 
-  const handleLogout = () => {
-    navigate('/');
-  };
-
   const RecipeGrid = ({ title, recipes, setRecipes }) => (
     <div className="recipes-grid">
       <div className="recipes-container">
@@ -54,7 +51,7 @@ const Profile = () => {
               <div className="recipe-actions">
                 {title === "My Recipes" && (
                   <>
-                    <a className="edit-btn" href="/AddRecipe">Edit</a>
+                    <Link className="edit-btn" to="/AddRecipe">Edit</Link>
                     <button className="delete-btn" onClick={() => handleDelete(recipe.id, title)}>Delete</button>
                   </>
                 )}
@@ -73,7 +70,6 @@ const Profile = () => {
     <div className="profile-page">
       <div className="banner">
         <img src="ban.jpg" alt="Profile Banner" />
-        <button className="banner-logout-btn" onClick={handleLogout}>Logout</button>
       </div>
     
       <div className="profile-content">
