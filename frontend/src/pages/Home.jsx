@@ -82,41 +82,43 @@ const Home = () => {
     return null;
   };
 
-  const renderRecipes = (recipeType) => (<div className="d-flex flex-nowrap overflow-auto p-2">
-    {recipes[recipeType].map((recipe) => (
-      <div key={recipe.id} className="col-md-3 mb-4 me-4">
-        <div className="card">
-          <div className="card-actions position-absolute end-0 m-2">
-            <button
-              className={`btn btn-link ${recipe.isFavorite ? 'text-warning' : 'text-white'}`}
-              onClick={() => handleFavorite(recipe.id)}
-            >
-              <i className="fas fa-star"></i>
-            </button>
-            <button
-              className={`btn btn-link ${recipe.isSaved ? 'text-primary' : 'text-white'}`}
-              onClick={() => handleSave(recipe.id)}
-            >
-              <i className="fas fa-bookmark"></i>
-            </button>
-            <button
-              className="btn btn-link text-white"
-              onClick={() => handleShare(recipe)}
-            >
-              <i className="fas fa-share-alt"></i>
-            </button>
-          </div>
-          <img src={recipe.image} className="card-img-top" alt={recipe.title} />
-          <div className="card-body">
-            <h5 className="card-title">{recipe.title}</h5>
-            <p className="card-text">Rating: {recipe.rating}</p>
-            <a href={`/ViewRecipe?id=${recipe.id}`} className="btn btn-primary">View Recipe</a>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-  );
+ const renderRecipes = (recipeType) => (
+    <div className="d-flex flex-nowrap overflow-auto p-2">
+        {recipes[recipeType].map((recipe) => (
+            <div key={recipe.id} className="col-md-3 mb-4 me-4">
+                <div className="card">
+                    <div className="card-actions position-absolute end-0 m-2">
+                        <button
+                            className={`btn btn-link ${recipe.isFavorite ? 'text-warning' : 'text-white'}`}
+                            onClick={() => handleFavorite(recipe.id)}
+                        >
+                            <i className="fas fa-star"></i>
+                        </button>
+                        <button
+                            className={`btn btn-link ${recipe.isSaved ? 'text-primary' : 'text-white'}`}
+                            onClick={() => handleSave(recipe.id)}
+                        >
+                            <i className="fas fa-bookmark"></i>
+                        </button>
+                        <button
+                            className="btn btn-link text-white"
+                            onClick={() => handleShare(recipe)}
+                        >
+                            <i className="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                    <img src={recipe.image} className="card-img-top" alt={recipe.title} />
+                    <div className="card-body">
+                        <h5 className="card-title">{recipe.title}</h5>
+                        <p className="card-text">Rating: {recipe.rating}</p>
+                        <Link to={`/ViewRecipe?id=${recipe.id}`} className="btn btn-primary">View Recipe</Link>
+                    </div>
+                </div>
+            </div>
+        ))}
+    </div>
+);
+
 
   // Add these handler functions
   const handleFavorite = (recipeId) => {
